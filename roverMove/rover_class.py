@@ -25,7 +25,5 @@ class RoverMotor:
         duty_cycle = map(vel, -100, 100, self.dc_min, self.dc_min)
         
         if vel > 0:
+            # Make motor go forward
             
-
-
-
