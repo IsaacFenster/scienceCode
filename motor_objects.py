@@ -11,7 +11,7 @@ def map(input, og_min, og_max, min, max):
 
 class Pump():
     """ 
-    Ideally Pump should be powered by Adafruit PCA9685 16-Channel Servo Driver
+    Pump should be connected to Adafruit PCA9685 16-Channel Servo Driver
     """
     def __init__(self, servo_channel):
         self.servo_channel = servo_channel
@@ -28,8 +28,16 @@ class Pump():
             kit.servo[self.servo_channel].angle = 0
             
 class Servo():
+    """ 
+    Servo should be connected to PCA9685 16-Channel Servo Driver
+    """
+    def __init__(self, servo_channel):
+        self.servo_channel = servo_channel
 
-    
+    def rotate_servo(self, degree):
+        """
+        
+        """
         
 class DCMotor():
     def __init__(self, in1, in2, enA):
@@ -43,7 +51,7 @@ class DCMotor():
         self.pwm.start(0)
         # ^ MAY NEED TO BE EDITED FOR FREQUENCY
     
-    def move_for_time(self, direction, speed, seconds):
+    def dc_for_time(self, direction, speed, seconds):
         """
         direction: "f" or "b"
         speed: 0-100
