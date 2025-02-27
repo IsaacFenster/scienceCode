@@ -3,7 +3,7 @@ import time
 from adafruit_servokit import ServoKit
 kit = ServoKit(channels=16)
 GPIO.setwarnings(False)
-GPIO.setmode(GPIO.BOARD)
+# GPIO.setmode(GPIO.BOARD)
 
 def map(input, og_min, og_max, min, max):
     "Input is value you want converted, ogs are range of that, min/max is range of final value"
@@ -38,6 +38,7 @@ class Servo():
         """
         
         """
+        kit.servo[self.servo_channel].angle = degree
         
 class DCMotor():
     def __init__(self, in1, in2, enA):
