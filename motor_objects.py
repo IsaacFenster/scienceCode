@@ -1,9 +1,11 @@
 import RPi.GPIO as GPIO
+GPIO.cleanup()
 import time
 from adafruit_servokit import ServoKit
 kit = ServoKit(channels=16)
+
 GPIO.setwarnings(False)
-# GPIO.setmode(GPIO.BOARD)
+GPIO.setmode(GPIO.BOARD)
 
 def map(input, og_min, og_max, min, max):
     "Input is value you want converted, ogs are range of that, min/max is range of final value"
@@ -24,7 +26,7 @@ class Pump():
         speed += 90
         duration = time.time()+seconds
         kit.servo[self.servo_channel].angle = speed
-        while time.time<duration:
+        while time.time()<duration:
             kit.servo[self.servo_channel].angle = 0
             
 class Servo():
@@ -59,10 +61,12 @@ class DCMotor():
         seconds: time to run
         """
         if direction == "f":
+            print("forward")
             GPIO.output(self.in1, 1)
             GPIO.output(self.in2, 0)
         
         if direction == "b":
+            print("backward")
             GPIO.output(self.in1, 0)
             GPIO.output(self.in2, 1)
         
@@ -71,4 +75,8 @@ class DCMotor():
         while time.time() < duration:
             continue
         self.pwm.ChangeDutyCycle(0)
+    
+    def __del__(self):
+        self.pwm.stop()
+        GPIO.cleanup()
         
